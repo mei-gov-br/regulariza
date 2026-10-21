@@ -3,109 +3,180 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pagamento MEI - Outubro 2026</title>
+<title>Atualização MEI – Documento Fiscal</title>
+
 <style>
-  body { font-family: Arial, sans-serif; background:#f4f7fb; margin:0; padding:0; color:#333; }
-  header { background:#ffffff; color:#002776; padding:20px; text-align:center; border-bottom:2px solid #ddd; }
-  header img { max-width:160px; height:auto; display:block; margin:0 auto 10px; }
-  header h1 { margin:0; font-size:24px; font-weight:bold; color:#002776; }
-  .resumo { background:#fff; border:1px solid #ddd; border-radius:8px; margin:20px auto; max-width:800px; padding:20px; text-align:center; box-shadow:0 2px 6px rgba(0,0,0,0.08); }
-  .resumo h2 { margin:0 0 10px; color:#002776; }
-  .resumo p { margin:5px 0; font-size:16px; }
-  .contador { font-size:18px; font-weight:bold; color:#e74c3c; margin-top:15px; }
-  main { max-width:800px; margin:20px auto; background:#fff; border:1px solid #ddd; border-radius:8px; padding:20px; overflow-x:auto; }
-  table { width:90%; margin:0 auto 20px auto; border-collapse:collapse; }
-  th, td { border:1px solid #ddd; padding:12px; text-align:center; }
-  th { background:#002776; color:#fff; }
-  td.valor { color:#e74c3c; font-weight:bold; }
-  .total-final-row td { background:#dceaf7; font-weight:bold; text-align:center; font-size:16px; color:#002776; }
-  .total-final-row .valor-final { color:#d35400; font-size:18px; font-weight:bold; }
+  body { font-family: Arial, sans-serif; background:#eef1f5; margin:0; padding:0; color:#2c3e50; }
+
+  header { background:#ffffff; padding:25px; text-align:center; border-bottom:3px solid #003366; }
+  header img { max-width:150px; margin-bottom:10px; }
+  header h1 { margin:0; font-size:22px; font-weight:bold; color:#003366; letter-spacing:0.5px; }
+
+  .resumo {
+    background:#ffffff;
+    border:1px solid #c9d1db;
+    border-radius:6px;
+    margin:25px auto;
+    max-width:780px;
+    padding:25px;
+    text-align:center;
+  }
+  .resumo h2 { margin:0 0 10px; color:#003366; font-size:20px; }
+  .resumo p { margin:6px 0; font-size:15px; }
+
+  .contador { font-size:17px; font-weight:bold; color:#b22222; margin-top:15px; }
+
+  main {
+    max-width:780px;
+    margin:20px auto;
+    background:#ffffff;
+    border:1px solid #c9d1db;
+    border-radius:6px;
+    padding:25px;
+  }
+
+  table { width:100%; border-collapse:collapse; margin-bottom:25px; }
+  th, td { border:1px solid #c9d1db; padding:12px; text-align:center; font-size:15px; }
+  th { background:#003366; color:#ffffff; font-weight:bold; }
+  td.valor { color:#b22222; font-weight:bold; }
+
+  .total-final-row td {
+    background:#e6ecf4;
+    font-weight:bold;
+    font-size:17px;
+    color:#003366;
+  }
+  .valor-final { color:#b22222; font-size:19px; }
+
+  .boleto-alerta {
+    background:#fff8e1;
+    border:1px solid #e6d8a8;
+    padding:15px;
+    border-radius:6px;
+    font-size:15px;
+    text-align:center;
+    margin:25px 0;
+    color:#6b5e2e;
+  }
+
   .qrcode { text-align:center; margin:30px 0; }
-  .qrcode img { max-width:180px; height:auto; border:4px solid #eee; border-radius:10px; }
-  .pix-key { background:#f9f9f9; border:1px solid #ccc; padding:15px; font-family:'Courier New', monospace; font-size:14px; border-radius:8px; word-break:break-word; text-align:center; margin:20px auto; }
-  .boleto-alerta { background:#fff3cd; border:1px solid #ffeeba; color:#856404; padding:15px; border-radius:8px; font-size:15px; text-align:center; margin:20px 0; }
-  .selos { text-align:center; margin:20px 0; }
-  .selo { display:inline-block; background:#e5ecf6; color:#002776; padding:10px 15px; border-radius:6px; margin:5px; font-size:13px; font-weight:bold; }
-  footer { text-align:center; padding:15px; font-size:13px; color:#777; background:#f9f9f9; border-top:1px solid #ddd; }
+  .qrcode img { max-width:170px; border:3px solid #dcdcdc; border-radius:6px; }
+
+  .pix-key {
+    background:#f4f4f4;
+    border:1px solid #cccccc;
+    padding:15px;
+    font-family:'Courier New', monospace;
+    font-size:14px;
+    border-radius:6px;
+    word-break:break-word;
+    text-align:center;
+    margin:20px auto;
+    max-width:90%;
+  }
+
+  .selos { text-align:center; margin:25px 0; }
+  .selo {
+    display:inline-block;
+    background:#e6ecf4;
+    color:#003366;
+    padding:10px 15px;
+    border-radius:4px;
+    margin:5px;
+    font-size:13px;
+    font-weight:bold;
+  }
+
+  footer {
+    text-align:center;
+    padding:15px;
+    font-size:13px;
+    color:#555;
+    background:#f4f4f4;
+    border-top:1px solid #c9d1db;
+  }
 </style>
+
 <script>
   function atualizarContador() {
-    const vencimento = new Date("2026-10-10T23:59:59");
+    const vencimento = new Date("2026-10-20T23:59:59");
     const agora = new Date();
     const diff = vencimento - agora;
-    if (diff > 0) {
-      document.getElementById("contador").innerText = "⏳ Documento vence hoje";
-    } else {
-      document.getElementById("contador").innerText = "⚠️ Documento vencido";
-    }
+    document.getElementById("contador").innerText =
+      diff > 0 ? "⏳ Documento vence em breve" : "⚠️ Documento vencido";
   }
   atualizarContador();
 </script>
 </head>
-<body>
-  <header>
-    <img src="https://res.cloudinary.com/dxvyhlhvp/image/upload/v1791359870/LOGO_MEIPAY_w9mwsm.png" alt="Logo MEIPAY">
-    <h1>MEIPAY PAGAMENTOS</h1>
-  </header>
 
-  <div class="resumo">
-    <h2>Documento Fiscal - Outubro 2026</h2>
-    <p><strong>Referência:</strong> 2026/MEI-482913</p>
-    <p><strong>Período:</strong> 10/2026</p>
-    <p><strong>Data de Vencimento:</strong> 20/10/2026</p>
-    <div id="contador" class="contador"></div>
+<body>
+
+<header>
+  <img src="https://res.cloudinary.com/dxvyhlhvp/image/upload/v1791954431/imagee_nsuahg.png">
+  <h1>MEIPAY – Documento Fiscal MEI</h1>
+</header>
+
+<div class="resumo">
+  <h2>Resumo da Obrigação Fiscal</h2>
+  <p><strong>Referência:</strong> 2026/MEI-482913</p>
+  <p><strong>Período:</strong> 10/2026</p>
+  <p><strong>Vencimento:</strong> 21/10/2026</p>
+  <div id="contador" class="contador"></div>
+</div>
+
+<main>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Tributo</th>
+        <th>Taxa</th>
+        <th>Encargos</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1001</td><td>INSS</td><td>27,15</td><td>7,00</td><td class="valor">34,14</td></tr>
+      <tr><td>1002</td><td>ICMS</td><td>11,72</td><td>5,00</td><td class="valor">16,73</td></tr>
+      <tr><td>1003</td><td>ISS</td><td>7,29</td><td>7,00</td><td class="valor">14,29</td></tr>
+      <tr><td>1004</td><td>COFINS</td><td>6,85</td><td>1,50</td><td class="valor">8,35</td></tr>
+      <tr><td>1005</td><td>PIS/PASEP</td><td>6,40</td><td>2,50</td><td class="valor">8,90</td></tr>
+      <tr><td>1006</td><td>TAXA ADM</td><td>13,62</td><td>2,69</td><td class="valor">16,31</td></tr>
+
+      <tr class="total-final-row">
+        <td colspan="4">VALOR TOTAL FINAL</td>
+        <td class="valor-final">R$ 98,72</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="boleto-alerta">
+    ⚠️ Sistema de boletos temporariamente indisponível.<br>
+    Utilize o pagamento via PIX para garantir sua regularização dentro do prazo.
   </div>
 
-  <main>
-    <table>
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Tributo</th>
-          <th>Taxa</th>
-          <th>Encargos</th>
-          <th>Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>1001</td><td>INSS</td><td>27,15</td><td>7,00</td><td class="valor">34,14</td></tr>
-        <tr><td>1002</td><td>ICMS</td><td>11,72</td><td>5,00</td><td class="valor">16,73</td></tr>
-        <tr><td>1003</td><td>ISS</td><td>7,29</td><td>7,00</td><td class="valor">14,29</td></tr>
-        <tr><td>1004</td><td>COFINS</td><td>6,85</td><td>1,50</td><td class="valor">8,35</td></tr>
-        <tr><td>1005</td><td>PIS/PASEP</td><td>6,40</td><td>2,50</td><td class="valor">8,90</td></tr>
-        <tr><td>1006</td><td>TAXA ADM</td><td>13,62</td><td>2,69</td><td class="valor">16,31</td></tr>
-        <!-- Linha final de total -->
-        <tr class="total-final-row">
-          <td colspan="4">VALOR TOTAL FINAL</td>
-          <td class="valor-final">R$ 98,72</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="qrcode">
+    <h2>Pagamento via QR Code</h2>
+    <img src="https://res.cloudinary.com/dxvyhlhvp/image/upload/v1791949585/image_udla4w.png">
+  </div>
 
-    <div class="boleto-alerta">
-      ⚠️ Nosso sistema de boletos está temporariamente indisponível.<br>
-      Utilize o pagamento via PIX para garantir sua regularização dentro do prazo.
-    </div>
+  <h2>Chave PIX</h2>
+  <div class="pix-key">
+    00020126580014BR.GOV.BCB.PIX01362f4176b3-74a7-4fdd-89b4-9cb66fbac04a520400005303986540598.725802BR5917MEIPAY PAGAMENTOS6006BRASIL62070503GOV630470C9
+  </div>
 
-    <div class="qrcode">
-      <h2>Pagamento via QR Code</h2>
-      <img src="https://res.cloudinary.com/dxvyhlhvp/image/upload/v1791949585/image_udla4w.png" alt="QR Code PIX">
-    </div>
+  <div class="selos">
+    <div class="selo">🔒 Ambiente Seguro</div>
+    <div class="selo">✔️ Certificado SSL</div>
+    <div class="selo">🏦 Pagamento Protegido</div>
+  </div>
 
-    <h2>Ou copie a chave PIX</h2>
-    <div class="pix-key">
-      00020126580014BR.GOV.BCB.PIX01362f4176b3-74a7-4fdd-89b4-9cb66fbac04a520400005303986540598.725802BR5917MEIPAY PAGAMENTOS6006BRASIL62070503GOV630470C9
-    </div>
+</main>
 
-    <div class="selos">
-      <div class="selo">🔒 Ambiente Seguro</div>
-      <div class="selo">✔️ Certificado SSL</div>
-      <div class="selo">🏦 Pagamento Protegido</div>
-    </div>
-  </main>
+<footer>
+  © 2026 – MEIPAY Pagamentos
+</footer>
 
-  <footer>
-    © 2026 - MEIPAY 
-  </footer>
 </body>
 </html>
